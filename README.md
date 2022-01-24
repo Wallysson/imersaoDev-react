@@ -1,6 +1,11 @@
 # PokéDiscord!
 This class was taught by Alura in Imersão Dev React and I rebuild by myself.
 
+<p align="center">
+  <img alt="pokediscord" src="assets/initial.PNG" width="100%">
+</p>
+
+
 ##
 
 ### 🚀 Languages
