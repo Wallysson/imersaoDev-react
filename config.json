@@ -1,5 +1,5 @@
 {
-  "name": "Aluracord - Matrix (peas)",
+  "name": "PokéChat",
   "theme": {
     "colors": {
       "primary": {
@@ -13,6 +13,14 @@
         "700": "#207227",
         "800": "#0E5814",
         "900": "#05400A"
+      },
+      "pokemon": {
+        "yellow": "#E4FF1A",
+        "red": "#C42021",
+        "blue": "#44BBA4",
+        "orange": "#FFA630",
+        "xiketic": "#1C0F13"
+
       },
       "neutrals": {
         "000": "#FFFFFF",

@@ -37,7 +37,7 @@ function Title(props) {
   const Tag = props.tag || 'h1'
   return (
     <>
-      <Tag>Boas vindas de volta!</Tag>
+      <Tag>Bem vindo, treinador!</Tag>
       <style jsx>{`
         ${Tag} {
           color: ${appConfig.theme.colors.neutrals['000']};
@@ -60,9 +60,11 @@ export default function PaginaInicial() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          height: '100vh',
           backgroundColor: appConfig.theme.colors.primary[100],
           backgroundImage:
-            'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
+            'url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/26887395-78f4-441d-a6e0-cc877fa24b54/deejrt3-3c33eed3-d378-4f78-b8c6-fc6fa60575d9.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzI2ODg3Mzk1LTc4ZjQtNDQxZC1hNmUwLWNjODc3ZmEyNGI1NFwvZGVlanJ0My0zYzMzZWVkMy1kMzc4LTRmNzgtYjhjNi1mYzZmYTYwNTc1ZDkucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.GLyG-NJ33bIHSVsd14MaodgIjhnEw-OvpmRtiyucEG0)',
+
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundBlendMode: 'multiply'
@@ -127,7 +129,7 @@ export default function PaginaInicial() {
               fullWidth
               buttonColors={{
                 contrastColor: appConfig.theme.colors.neutrals['000'],
-                mainColor: appConfig.theme.colors.primary[500],
+                mainColor: appConfig.theme.colors.pokemon['red'],
                 mainColorLight: appConfig.theme.colors.primary[400],
                 mainColorStrong: appConfig.theme.colors.primary[600]
               }}
@@ -143,7 +145,7 @@ export default function PaginaInicial() {
               alignItems: 'center',
               maxWidth: '200px',
               padding: '16px',
-              backgroundColor: appConfig.theme.colors.neutrals[800],
+              backgroundColor: appConfig.theme.colors.pokemon['800'],
               border: '1px solid',
               borderColor: appConfig.theme.colors.neutrals[999],
               borderRadius: '10px',
