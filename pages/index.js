@@ -1,4 +1,5 @@
 import appConfig from '../config.json'
+import Head from 'next/head'
 import { Box, Button, Text, TextField, Image } from '@skynexui/components'
 
 // Componente React
@@ -40,9 +41,10 @@ function Title(props) {
       <Tag>Bem vindo, treinador!</Tag>
       <style jsx>{`
         ${Tag} {
-          color: ${appConfig.theme.colors.neutrals['000']};
+          color: ${appConfig.theme.colors.pokemon['orange']};
           font-size: 24px;
-          font-weight: 600;
+          font-family: 'Poppins', sans-serif;
+          font-weight: 700;
         }
       `}</style>
     </>
@@ -54,6 +56,15 @@ export default function PaginaInicial() {
 
   return (
     <>
+      <head>
+        <title>PokéChat - Encontre Treinadores na Imersão Dev</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <GlobalStyle />
       <Box
         styleSheet={{
@@ -85,7 +96,7 @@ export default function PaginaInicial() {
             padding: '32px',
             margin: '16px',
             boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
-            backgroundColor: appConfig.theme.colors.neutrals[700]
+            backgroundColor: appConfig.theme.colors.neutrals[900]
           }}
         >
           {/* Formulário */}
@@ -118,7 +129,8 @@ export default function PaginaInicial() {
                 neutral: {
                   textColor: appConfig.theme.colors.neutrals[200],
                   mainColor: appConfig.theme.colors.neutrals[900],
-                  mainColorHighlight: appConfig.theme.colors.primary[500],
+                  mainColorHighlight:
+                    appConfig.theme.colors.pokemon['yellow-orange-hover'],
                   backgroundColor: appConfig.theme.colors.neutrals[800]
                 }
               }}
@@ -129,9 +141,10 @@ export default function PaginaInicial() {
               fullWidth
               buttonColors={{
                 contrastColor: appConfig.theme.colors.neutrals['000'],
-                mainColor: appConfig.theme.colors.pokemon['red'],
+                mainColor: appConfig.theme.colors.pokemon['yellow-orange'],
                 mainColorLight: appConfig.theme.colors.primary[400],
-                mainColorStrong: appConfig.theme.colors.primary[600]
+                mainColorStrong:
+                  appConfig.theme.colors.pokemon['yellow-orange-hover']
               }}
             />
           </Box>
@@ -145,7 +158,7 @@ export default function PaginaInicial() {
               alignItems: 'center',
               maxWidth: '200px',
               padding: '16px',
-              backgroundColor: appConfig.theme.colors.pokemon['800'],
+              backgroundColor: appConfig.theme.colors.neutrals[800],
               border: '1px solid',
               borderColor: appConfig.theme.colors.neutrals[999],
               borderRadius: '10px',
@@ -155,7 +168,7 @@ export default function PaginaInicial() {
           >
             <Image
               styleSheet={{
-                borderRadius: '50%',
+                borderRadius: '10px',
                 marginBottom: '16px'
               }}
               src={`https://github.com/${username}.png`}
@@ -165,6 +178,9 @@ export default function PaginaInicial() {
               styleSheet={{
                 color: appConfig.theme.colors.neutrals[200],
                 backgroundColor: appConfig.theme.colors.neutrals[900],
+                fontFamily: 'Poppins sans-serif',
+                fontSize: '14px',
+                fontWeight: '400',
                 padding: '3px 10px',
                 borderRadius: '1000px'
               }}

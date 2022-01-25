@@ -19,7 +19,10 @@
         "red": "#C42021",
         "blue": "#44BBA4",
         "orange": "#FFA630",
-        "xiketic": "#1C0F13"
+        "yellow-orange": "#FFA630",
+        "yellow-orange-hover": "#FFAF47",
+        "rich-black": "#0C080A",
+        "xiketic": "#191015"
 
       },
       "neutrals": {
