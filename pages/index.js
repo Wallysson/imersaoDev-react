@@ -1,38 +1,8 @@
 import appConfig from '../config.json'
 import Head from 'next/head'
+import React from 'react'
+import { useRouter } from 'next/router'
 import { Box, Button, Text, TextField, Image } from '@skynexui/components'
-
-// Componente React
-function GlobalStyle() {
-  return (
-    <style global jsx>{`
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        list-style: none;
-      }
-      body {
-        font-family: 'Open Sans', sans-serif;
-      }
-      /* App fit Height */
-      html,
-      body,
-      #__next {
-        min-height: 100vh;
-        display: flex;
-        flex: 1;
-      }
-      #__next {
-        flex: 1;
-      }
-      #__next > * {
-        flex: 1;
-      }
-      /* ./App fit Height */
-    `}</style>
-  )
-}
 
 function Title(props) {
   const Tag = props.tag || 'h1'
@@ -52,7 +22,9 @@ function Title(props) {
 }
 
 export default function PaginaInicial() {
-  const username = 'Wallysson'
+  // const username = 'Wallysson'
+  const [username, setUsername] = React.useState('Wallysson')
+  const roteamento = useRouter()
 
   return (
     <>
@@ -65,7 +37,7 @@ export default function PaginaInicial() {
           rel="stylesheet"
         />
       </head>
-      <GlobalStyle />
+
       <Box
         styleSheet={{
           display: 'flex',
@@ -102,6 +74,10 @@ export default function PaginaInicial() {
           {/* Formulário */}
           <Box
             as="form"
+            onSubmit={function (infosDoEvento) {
+              infosDoEvento.preventDefault()
+              roteamento.push('/chat')
+            }}
             styleSheet={{
               display: 'flex',
               flexDirection: 'column',
@@ -124,6 +100,13 @@ export default function PaginaInicial() {
             </Text>
 
             <TextField
+              value={username}
+              onChange={function (event) {
+                // Onde está o valor?
+                const valor = event.target.value
+                // Trocar o valor da variável através do React e avise quem precisar
+                setUsername(valor)
+              }}
               fullWidth
               textFieldColors={{
                 neutral: {
@@ -177,7 +160,6 @@ export default function PaginaInicial() {
               variant="body4"
               styleSheet={{
                 color: appConfig.theme.colors.neutrals[200],
-                backgroundColor: appConfig.theme.colors.neutrals[900],
                 fontFamily: 'Poppins sans-serif',
                 fontSize: '14px',
                 fontWeight: '400',
