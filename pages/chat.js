@@ -1,18 +1,44 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components'
 import React from 'react'
 import appConfig from '../config.json'
+import {
+  createClient,
+  RealtimeClient,
+  SupabaseClient
+} from '@supabase/supabase-js'
+
+const SUPABASE_ANON_KEY =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMwNTA4MywiZXhwIjoxOTU4ODgxMDgzfQ.5Tk5aT_Gch1JmB0LBQnlRf4-iocBWuE-3C77I1hoaH0'
+const SUPABASE_URL = 'https://djlbgrpzqczpzyfiqnku.supabase.co'
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 export default function ChatPage() {
   const [mensagem, setMensagem] = React.useState('')
   const [listaDeMensagens, setListaDeMensagens] = React.useState([])
 
+  React.useEffect(() => {
+    supabaseClient
+      .from('mensagens')
+      .select('*')
+      .order('id', { ascending: false })
+      .then(({ data }) => {
+        setListaDeMensagens(data)
+      })
+  }, [])
+
   function handleNovaMensagem(novaMensagem) {
     const mensagem = {
-      id: listaDeMensagens + 1,
+      // id: listaDeMensagens + 1,
       de: 'Wallysson',
       texto: novaMensagem
     }
-    setListaDeMensagens([mensagem, ...listaDeMensagens])
+
+    supabaseClient
+      .from('mensagens')
+      .insert([mensagem])
+      .then(({ data }) => {
+        setListaDeMensagens([data[0], ...listaDeMensagens])
+      })
     setMensagem('')
   }
 
@@ -100,6 +126,18 @@ export default function ChatPage() {
                 color: appConfig.theme.colors.neutrals[200]
               }}
             />
+            {/* <Button
+              label="OK"
+              styleSheet={{
+                border: '0',
+
+                borderRadius: '5px',
+                padding: '6px 8px',
+                backgroundColor: appConfig.theme.colors.neutrals[800],
+                marginRight: '12px',
+                color: appConfig.theme.colors.neutrals[200]
+              }}
+            ></Button> */}
           </Box>
         </Box>
       </Box>
@@ -132,7 +170,7 @@ function Header() {
 }
 
 function MessageList(props) {
-  console.log('MessageList', props)
+  // console.log('MessageList', props)
   return (
     <Box
       tag="ul"
