@@ -1,6 +1,8 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components'
 import React from 'react'
+import { useRouter } from 'next/router'
 import appConfig from '../config.json'
+import { ButtonSendSticker } from '../src/components/ButtonSendSticker'
 import {
   createClient,
   RealtimeClient,
@@ -13,8 +15,19 @@ const SUPABASE_URL = 'https://djlbgrpzqczpzyfiqnku.supabase.co'
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 export default function ChatPage() {
+  const roteamento = useRouter()
+  const usuarioLogado = roteamento.query.username
   const [mensagem, setMensagem] = React.useState('')
   const [listaDeMensagens, setListaDeMensagens] = React.useState([])
+
+  function escutaMensagensEmTempoReal(adicionaMensagem) {
+    return supabaseClient
+      .from('mensagens')
+      .on('INSERT', respostaLive => {
+        adicionaMensagem(respostaLive.new)
+      })
+      .subscribe()
+  }
 
   React.useEffect(() => {
     supabaseClient
@@ -24,12 +37,17 @@ export default function ChatPage() {
       .then(({ data }) => {
         setListaDeMensagens(data)
       })
+    escutaMensagensEmTempoReal(novaMensagem => {
+      setListaDeMensagens(valorAtualDaLista => {
+        return [novaMensagem, ...valorAtualDaLista]
+      })
+    })
   }, [])
 
   function handleNovaMensagem(novaMensagem) {
     const mensagem = {
       // id: listaDeMensagens + 1,
-      de: 'Wallysson',
+      de: usuarioLogado,
       texto: novaMensagem
     }
 
@@ -37,8 +55,9 @@ export default function ChatPage() {
       .from('mensagens')
       .insert([mensagem])
       .then(({ data }) => {
-        setListaDeMensagens([data[0], ...listaDeMensagens])
+        console.log('nova mensagem', data)
       })
+
     setMensagem('')
   }
 
@@ -124,6 +143,12 @@ export default function ChatPage() {
                 backgroundColor: appConfig.theme.colors.neutrals[800],
                 marginRight: '12px',
                 color: appConfig.theme.colors.neutrals[200]
+              }}
+            />
+            <ButtonSendSticker
+              onStickerClick={sticker => {
+                // console.log('[USANDO O COMPONENTE] Salva esse sticker no banco', sticker);
+                handleNovaMensagem(':sticker: ' + sticker)
               }}
             />
             {/* <Button
@@ -224,7 +249,12 @@ function MessageList(props) {
                 {new Date().toLocaleDateString()}
               </Text>
             </Box>
-            {mensagem.texto}
+            {/* Aqui */}
+            {mensagem.texto.startsWith(':sticker:') ? (
+              <Image src={mensagem.texto.replace(':sticker:', '')} />
+            ) : (
+              mensagem.texto
+            )}
           </Text>
         )
       })}
