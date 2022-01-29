@@ -116,7 +116,7 @@ export default function ChatPage() {
             as="form"
             styleSheet={{
               display: 'flex',
-              alignItems: 'center'
+              gap: '10px'
             }}
           >
             <TextField
@@ -136,6 +136,7 @@ export default function ChatPage() {
               type="textarea"
               styleSheet={{
                 width: '100%',
+                height: '50px',
                 border: '0',
                 resize: 'none',
                 borderRadius: '5px',
@@ -145,6 +146,22 @@ export default function ChatPage() {
                 color: appConfig.theme.colors.neutrals[200]
               }}
             />
+            <Button
+              styleSheet={{
+                height: '50px',
+                contrastColor: appConfig.theme.colors.neutrals['000'],
+                mainColor: appConfig.theme.colors.pokemon['yellow-orange'],
+                mainColorLight: appConfig.theme.colors.primary[400],
+                mainColorStrong:
+                  appConfig.theme.colors.pokemon['yellow-orange-hover']
+              }}
+              label="Enviar"
+              onClick={event => {
+                event.preventDefault()
+                handleNovaMensagem(mensagem)
+              }}
+            />
+
             <ButtonSendSticker
               onStickerClick={sticker => {
                 // console.log('[USANDO O COMPONENTE] Salva esse sticker no banco', sticker);
@@ -251,7 +268,12 @@ function MessageList(props) {
             </Box>
             {/* Aqui */}
             {mensagem.texto.startsWith(':sticker:') ? (
-              <Image src={mensagem.texto.replace(':sticker:', '')} />
+              <Image
+                src={mensagem.texto.replace(':sticker:', '')}
+                styleSheet={{
+                  maxWidth: '150px'
+                }}
+              />
             ) : (
               mensagem.texto
             )}
